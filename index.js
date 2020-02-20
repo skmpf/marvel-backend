@@ -14,8 +14,11 @@ const hash = md5(timeStamp + privateKey + publicKey);
 
 app.get("/characters", async (req, res) => {
   try {
+    const page = req.query.page;
+    const limit = 100;
+    const offset = limit * (page - 1);
     const response = await axios.get(
-      `http://gateway.marvel.com/v1/public/characters?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}`
+      `http://gateway.marvel.com/v1/public/characters?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}&orderBy=name&limit=${limit}&offset=${offset}`
     );
     res.json(response.data);
   } catch (error) {
@@ -23,22 +26,11 @@ app.get("/characters", async (req, res) => {
   }
 });
 
-app.get("/character/:id", async (req, res) => {
+app.get("/characters/:id", async (req, res) => {
   try {
     const response = await axios.get(
       `http://gateway.marvel.com/v1/public/characters/${req.params.id}?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}`
     );
-    const characters = response.data.data.results;
-
-    // const found = [];
-    // for (let i = 0; i < characters.length; i++) {
-    //   if (characters[i].id === Number(req.params.id)) {
-    //     found.push(characters[i]);
-    //   }
-    // }
-    // const character = found;
-    console.log(characters);
-
     res.json(response.data);
   } catch (error) {
     res.json(error.message);
@@ -47,8 +39,11 @@ app.get("/character/:id", async (req, res) => {
 
 app.get("/comics", async (req, res) => {
   try {
+    const page = req.query.page;
+    const limit = 100;
+    const offset = limit * (page - 1);
     const response = await axios.get(
-      `http://gateway.marvel.com/v1/public/comics?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}`
+      `http://gateway.marvel.com/v1/public/comics?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}&orderBy=title&limit=${limit}&offset=${offset}`
     );
     res.json(response.data);
   } catch (error) {
