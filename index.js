@@ -51,25 +51,26 @@ app.get("/comics", async (req, res) => {
   }
 });
 
-app.get("/search", async (req, res) => {
+app.get("/search/:category/:search", async (req, res) => {
   try {
-    const search = req.query.search;
+    const category = req.params.category;
+    const search = req.params.search;
     const page = req.query.page;
     const limit = 100;
     const offset = limit * (page - 1);
-    const searchCharacters = await axios.get(
-      `http://gateway.marvel.com/v1/public/characters?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}&orderBy=name&limit=${limit}&offset=${offset}&nameStartsWith=${search}`
-    );
-    const searchComics = await axios.get(
-      `http://gateway.marvel.com/v1/public/comics?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}&orderBy=title&limit=${limit}&offset=${offset}&titleStartsWith=${search}`
-    );
-    const searchResults = [
-      {
-        searchCharacters: searchCharacters.data.data
-      },
-      { searchComics: searchComics.data.data }
-    ];
-    res.json(searchResults);
+
+    let response;
+    if (category === "characters") {
+      response = await axios.get(
+        `http://gateway.marvel.com/v1/public/characters?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}&orderBy=name&limit=${limit}&offset=${offset}&nameStartsWith=${search}`
+      );
+    } else {
+      response = await axios.get(
+        `http://gateway.marvel.com/v1/public/comics?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}&orderBy=title&limit=${limit}&offset=${offset}&titleStartsWith=${search}`
+      );
+    }
+    const results = response.data.data;
+    res.json(results);
   } catch (error) {
     res.json(error.message);
   }
