@@ -51,6 +51,30 @@ app.get("/comics", async (req, res) => {
   }
 });
 
+app.get("/search", async (req, res) => {
+  try {
+    const search = req.query.search;
+    const page = req.query.page;
+    const limit = 100;
+    const offset = limit * (page - 1);
+    const searchCharacters = await axios.get(
+      `http://gateway.marvel.com/v1/public/characters?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}&orderBy=name&limit=${limit}&offset=${offset}&nameStartsWith=${search}`
+    );
+    const searchComics = await axios.get(
+      `http://gateway.marvel.com/v1/public/comics?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}&orderBy=title&limit=${limit}&offset=${offset}&titleStartsWith=${search}`
+    );
+    const searchResults = [
+      {
+        searchCharacters: searchCharacters.data.data
+      },
+      { searchComics: searchComics.data.data }
+    ];
+    res.json(searchResults);
+  } catch (error) {
+    res.json(error.message);
+  }
+});
+
 // app.get("/user/sign_in", async (req, res) => {
 //   try {
 //     res.json("SignIn");
