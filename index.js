@@ -1,17 +1,34 @@
+// import packages
 require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
 const app = express();
+const formidable = require("express-formidable");
+app.use(formidable({ multiples: true }));
+const mongoose = require("mongoose");
+const cors = require("cors");
 app.use(cors());
-
 const axios = require("axios");
 const md5 = require("js-md5");
+const uid2 = require("uid2");
 
-const timeStamp = 1;
+// set mongodb connection
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+});
+
+// Marvel API requirements
+const timeStamp = uid2(8);
 const privateKey = process.env.MARVEL_SKEY;
 const publicKey = process.env.MARVEL_PKEY;
 const hash = md5(timeStamp + privateKey + publicKey);
 
+// import of User routes
+const UserRoutes = require("./routes/user");
+app.use(UserRoutes);
+
+// GET all characters
 app.get("/characters", async (req, res) => {
   try {
     const page = req.query.page;
@@ -26,6 +43,7 @@ app.get("/characters", async (req, res) => {
   }
 });
 
+// GET one character by ID
 app.get("/characters/:id", async (req, res) => {
   try {
     const response = await axios.get(
@@ -37,6 +55,7 @@ app.get("/characters/:id", async (req, res) => {
   }
 });
 
+// GET all comics
 app.get("/comics", async (req, res) => {
   try {
     const page = req.query.page;
@@ -51,6 +70,7 @@ app.get("/comics", async (req, res) => {
   }
 });
 
+// SEARCH for characters or comics
 app.get("/search/:category/:search", async (req, res) => {
   try {
     const category = req.params.category;
@@ -76,32 +96,12 @@ app.get("/search/:category/:search", async (req, res) => {
   }
 });
 
-// app.get("/user/sign_in", async (req, res) => {
-//   try {
-//     res.json("SignIn");
-//   } catch (error) {
-//     res.json(error.message);
-//   }
-// });
-
-// app.get("/user/sign_up", async (req, res) => {
-//   try {
-//     res.json("SignUp");
-//   } catch (error) {
-//     res.json(error.message);
-//   }
-// });
-
-app.get("/user/favorites", (req, res) => {
-  res.json({ message: "Favorites" });
-});
-
 app.get("/", (req, res) => {
   res.json({ message: "Hello Marvel" });
 });
 
 app.all("*", (req, res) => {
-  res.json({ message: "Route not found" });
+  res.json({ message: "Page not found" });
 });
 
 app.listen(process.env.PORT, () => {
