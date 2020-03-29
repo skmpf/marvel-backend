@@ -19,7 +19,7 @@
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
     "js-md5": "^0.7.3",
-    "mongoose": "^5.9.2",
+    "mongoose": "^5.9.6",
     "uid2": "0.0.3"
   }
 }
