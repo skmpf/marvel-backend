@@ -19,7 +19,6 @@ mongoose.connect(process.env.MONGODB_URI, {
 });
 
 // Marvel API requirements
-const timeStamp = uid2(8);
 const privateKey = process.env.MARVEL_SKEY;
 const publicKey = process.env.MARVEL_PKEY;
 const hash = md5(timeStamp + privateKey + publicKey);
@@ -31,6 +30,7 @@ app.use(UserRoutes);
 // GET all characters
 app.get("/characters", async (req, res) => {
   try {
+    let timeStamp = uid2(8);
     const page = req.query.page;
     const limit = 100;
     const offset = limit * (page - 1);
@@ -46,6 +46,7 @@ app.get("/characters", async (req, res) => {
 // GET one character by ID
 app.get("/characters/:id", async (req, res) => {
   try {
+    let timeStamp = uid2(8);
     const response = await axios.get(
       `http://gateway.marvel.com/v1/public/characters/${req.params.id}?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}`
     );
@@ -58,6 +59,7 @@ app.get("/characters/:id", async (req, res) => {
 // GET all comics
 app.get("/comics", async (req, res) => {
   try {
+    let timeStamp = uid2(8);
     const page = req.query.page;
     const limit = 100;
     const offset = limit * (page - 1);
@@ -73,6 +75,7 @@ app.get("/comics", async (req, res) => {
 // SEARCH for characters or comics
 app.get("/search/:category/:search", async (req, res) => {
   try {
+    let timeStamp = uid2(8);
     const category = req.params.category;
     const search = req.params.search;
     const page = req.query.page;
