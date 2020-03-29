@@ -21,7 +21,6 @@ mongoose.connect(process.env.MONGODB_URI, {
 // Marvel API requirements
 const privateKey = process.env.MARVEL_SKEY;
 const publicKey = process.env.MARVEL_PKEY;
-const hash = md5(timeStamp + privateKey + publicKey);
 
 // import of User routes
 const UserRoutes = require("./routes/user");
@@ -31,6 +30,7 @@ app.use(UserRoutes);
 app.get("/characters", async (req, res) => {
   try {
     let timeStamp = uid2(8);
+    let hash = md5(timeStamp + privateKey + publicKey);
     const page = req.query.page;
     const limit = 100;
     const offset = limit * (page - 1);
@@ -47,6 +47,7 @@ app.get("/characters", async (req, res) => {
 app.get("/characters/:id", async (req, res) => {
   try {
     let timeStamp = uid2(8);
+    let hash = md5(timeStamp + privateKey + publicKey);
     const response = await axios.get(
       `http://gateway.marvel.com/v1/public/characters/${req.params.id}?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}`
     );
@@ -60,6 +61,7 @@ app.get("/characters/:id", async (req, res) => {
 app.get("/comics", async (req, res) => {
   try {
     let timeStamp = uid2(8);
+    let hash = md5(timeStamp + privateKey + publicKey);
     const page = req.query.page;
     const limit = 100;
     const offset = limit * (page - 1);
@@ -76,6 +78,7 @@ app.get("/comics", async (req, res) => {
 app.get("/search/:category/:search", async (req, res) => {
   try {
     let timeStamp = uid2(8);
+    let hash = md5(timeStamp + privateKey + publicKey);
     const category = req.params.category;
     const search = req.params.search;
     const page = req.query.page;
