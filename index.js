@@ -103,12 +103,13 @@ app.get("/search/:category/:search", async (req, res) => {
 });
 
 // GET favorites
-app.post("favorites", async (req, res) => {
+app.post("/favorites", async (req, res) => {
   let timeStamp = uid2(8);
   let hash = md5(timeStamp + privateKey + publicKey);
 
   const fav = req.fields.fav;
   let favTab = [[], []];
+
   try {
     for (let i = 0; i < fav.length; i++) {
       if (i === 0) {
