@@ -102,6 +102,37 @@ app.get("/search/:category/:search", async (req, res) => {
   }
 });
 
+// GET favorites
+app.post("favorites", async (req, res) => {
+  let timeStamp = uid2(8);
+  let hash = md5(timeStamp + privateKey + publicKey);
+
+  const fav = req.fields.fav;
+  let favTab = [[], []];
+  try {
+    for (let i = 0; i < fav.length; i++) {
+      if (i === 0) {
+        for (let j = 0; j < fav[i].length; j++) {
+          const response = await axios.get(
+            `http://gateway.marvel.com/v1/public/characters/${fav[i][j]}?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}`
+          );
+          favTab[0].push(response.data);
+        }
+      } else {
+        for (let j = 0; j < fav[i].length; j++) {
+          const response = await axios.get(
+            `http://gateway.marvel.com/v1/public/comics/${fav[i][j]}?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}`
+          );
+          favTab[1].push(response.data);
+        }
+      }
+    }
+    res.json(favTab);
+  } catch (error) {
+    res.json(error.message);
+  }
+});
+
 app.get("/", (req, res) => {
   res.json({ message: "Hello Marvel" });
 });
