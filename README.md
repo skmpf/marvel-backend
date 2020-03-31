@@ -33,16 +33,18 @@ A simple API to access Marvel characters and comics from Marvel's very own (and 
 #### Architecture
 
 - marvel route:
-  _ get characters: axios request to Marvel API
-  _ get character by id: axios request to Marvel API
-  _ get comics: axios request to Marvel API
-  _ get search for characters or comics: axios request to Marvel API \* get user favorites (handled by cookies): axios request to Marvel API
+
+  - get characters: axios request to Marvel API
+  - get character by id: axios request to Marvel API
+  - get comics: axios request to Marvel API
+  - get search for characters or comics: axios request to Marvel API \* get user favorites (handled by cookies): axios request to Marvel API
 
   Marvel API: https://developer.marvel.com/
 
 - user route:
-  _ sign up: creates new user account in MongoDB database and handles security with token, hash and salt
-  _ log in: handled by token
+
+  - sign up: creates new user account in MongoDB database and handles security with token, hash and salt
+  - log in: handled by token
 
 - middleware: isAuthenticated checks for user token when client makes a http request
 
