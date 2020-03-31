@@ -8,7 +8,7 @@ A simple API to access Marvel characters and comics from Marvel's very own (and 
 	<img
 			width="600"
 			alt="demo"
-			src="https://github.com/sebkpf/marvel-react/blob/master/documentation/demo.png">
+			src="https://github.com/sebkpf/marvel-backend/blob/master/documentation/demo.png">
 </p>
 
 <p align="center">
@@ -33,19 +33,16 @@ A simple API to access Marvel characters and comics from Marvel's very own (and 
 #### Architecture
 
 - marvel route:
-
-      	- get characters: axios request to Marvel API
-      	- get character by id: axios request to Marvel API
-      	- get comics: axios request to Marvel API
-      	- get search for characters or comics: axios request to Marvel API
-      	- get user favorites (handled by cookies): axios request to Marvel API
+  _ get characters: axios request to Marvel API
+  _ get character by id: axios request to Marvel API
+  _ get comics: axios request to Marvel API
+  _ get search for characters or comics: axios request to Marvel API \* get user favorites (handled by cookies): axios request to Marvel API
 
   Marvel API: https://developer.marvel.com/
 
 - user route:
-
-      	- sign up: creates new user account in MongoDB database and handles security with token, hash and salt
-      	- log in: handled by token
+  _ sign up: creates new user account in MongoDB database and handles security with token, hash and salt
+  _ log in: handled by token
 
 - middleware: isAuthenticated checks for user token when client makes a http request
 
