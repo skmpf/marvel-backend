@@ -8,7 +8,7 @@ A simple API to access Marvel characters and comics from Marvel's very own (and 
 	<img
 			width="600"
 			alt="demo"
-			src="https://github.com/sebkpf/marvel-backend/blob/master/documentation/demo.png">
+			src="https://github.com/sebkpf/marvel-react/blob/master/documentation/demo.png">
 </p>
 
 <p align="center">
