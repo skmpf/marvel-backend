@@ -6,7 +6,7 @@ A simple API to access Marvel characters and comics from Marvel's very own (and 
 
 <p align="center">
 	<img
-			width="600"
+			width="1000"
 			alt="demo"
 			src="https://github.com/sebkpf/marvel-react/blob/master/documentation/demo.png">
 </p>
@@ -19,16 +19,16 @@ A simple API to access Marvel characters and comics from Marvel's very own (and 
 
 #### Dependencies
 
-- Node.js
-- axios
-- express
-- express-formidable
-- cors
-- mongoose
-- crypto-js
-- js-md5
-- uid2
-- dotenv
+- [Node.js](https://nodejs.org/en/)
+- [axios](https://www.npmjs.com/package/axios)
+- [express](https://www.npmjs.com/package/express)
+- [express-formidable](https://www.npmjs.com/package/express-formidable)
+- [cors](https://www.npmjs.com/package/cors)
+- [mongoose](https://www.npmjs.com/package/mongoose)
+- [crypto-js](https://www.npmjs.com/package/crypto-js)
+- [js-md5](https://www.npmjs.com/package/js-md5)
+- [uid2](https://www.npmjs.com/package/uid2)
+- [dotenv](https://www.npmjs.com/package/dotenv)
 
 #### Architecture
 
@@ -39,7 +39,7 @@ A simple API to access Marvel characters and comics from Marvel's very own (and 
   - get comics: axios request to Marvel API
   - get search for characters or comics: axios request to Marvel API \* get user favorites (handled by cookies): axios request to Marvel API
 
-  Marvel API: https://developer.marvel.com/
+  Marvel API: [https://developer.marvel.com/](https://developer.marvel.com/)
 
 - user route:
 
@@ -71,13 +71,12 @@ npx nodemon index.js
 
 ## Marvel Client
 
-<a href="https://github.com/sebkpf/marvel-react">https://github.com/sebkpf/marvel-react</a>
+[https://github.com/sebkpf/marvel-react](https://github.com/sebkpf/marvel-react)
 
-- React
-- HTTP request with axios package (get and post)
-- Hooks (useState, useEffect)
-- React Router Dom
-- Cookies to handle user favorites
+- [React](https://reactjs.org/docs/getting-started.html)
+- [React Router](https://reacttraining.com/react-router/web/guides/quick-start)
+- [JS Cookie](https://github.com/js-cookie/js-cookie)
+- [Axios](https://github.com/axios/axios)
 
 ## Deployment
 
@@ -91,4 +90,4 @@ Project is finished
 
 ## Contact
 
-<a href="https://www.linkedin.com/in/sebastienkempf/" target="_blank">My LinkedIn profile</a>
+[My LinkedIn profile](https://www.linkedin.com/in/sebastienkempf/)
