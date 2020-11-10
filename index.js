@@ -9,7 +9,7 @@ const cors = require("cors");
 app.use(cors());
 
 // set mongodb connection
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(process.env.DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true
