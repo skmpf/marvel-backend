@@ -18,6 +18,9 @@ mongoose.connect(process.env.DB_URI, {
 // import of User routes
 const UserRoutes = require("./routes/user");
 app.use(UserRoutes);
+// import of Marvel routes
+const MarvelRoutes = require("./routes/marvel");
+app.use(MarvelRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "Hello Marvel" });
